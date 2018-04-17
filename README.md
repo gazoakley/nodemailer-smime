@@ -19,7 +19,7 @@ const smime = require('nodemailer-smime');
 Attach it as a 'stream' handler for a nodemailer transport object
 
 ```javascript
-transporter.use('stream', htmlToText(options))
+transporter.use('stream', htmlToText(options));
 ```
 
 ## Options
@@ -37,7 +37,7 @@ const options = {
     cert: '<PEM formatted cert>',
     key: '<PEM formatted key>'
 }
-transporter.use('compile', smime(options));
+transporter.use('stream', smime(options));
 transporter.sendMail({
     from: 'me@example.com',
     to: 'receiver@example.com',
