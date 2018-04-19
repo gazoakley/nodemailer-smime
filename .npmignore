@@ -1,3 +1,9 @@
-test
-.editorconfig
+.nyc_output
 .vscode
+coverage
+node_modules
+test
+.DS_Store
+.coveralls.yml
+.editorconfig
+.travis.yml
