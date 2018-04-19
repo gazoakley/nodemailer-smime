@@ -1,6 +1,6 @@
 # Nodemailer plugin to sign mail using S/MIME
 
-
+[![Build Status](https://travis-ci.org/gazoakley/nodemailer-smime.svg?branch=master)](https://travis-ci.org/gazoakley/nodemailer-smime)
 [![dependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/status.svg)](https://david-dm.org/gazoakley/nodemailer-smime)
 [![devDependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/dev-status.svg)](https://david-dm.org/gazoakley/nodemailer-smime?type=dev)
 
