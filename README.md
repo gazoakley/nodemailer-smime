@@ -1,5 +1,9 @@
 # Nodemailer plugin to sign mail using S/MIME
 
+
+[![dependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/status.svg)](https://david-dm.org/gazoakley/nodemailer-smime)
+[![devDependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/dev-status.svg)](https://david-dm.org/gazoakley/nodemailer-smime?type=dev)
+
 This plugin signs mail using an S/MIME certificate. Many mail agents are able to decode these in order to prove the identity of the sender.
 
 ## Install
