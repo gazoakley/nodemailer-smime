@@ -3,3 +3,4 @@ node_js:
   - "node"
   - "lts/carbon"
   - "lts/boron"
+script: npm run test-coverage
