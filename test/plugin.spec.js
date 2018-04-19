@@ -19,13 +19,16 @@ describe('smime', () => {
 
   let mail;
   it('should create a new root MIME node with children', (done) => {
-    const message = new MimeNode('text/plain');
-    message.setContent('Example\nmessage');
+    const message = new MimeNode('multipart/mixed');
     message.setHeader({
       from: 'Example user <user@example.com>',
       to: 'Example recipient <recipient@example.com>',
       subject: 'Example message',
     });
+    const textNode = message.createChild('text/plain');
+    textNode.setContent('Example\nmessage');
+    const binaryNode = message.createChild('application/octet-stream');
+    binaryNode.setContent('DO\nNOT\nALTER');
     mail = { message };
     plugin(mail, (err) => {
       if (err) {
@@ -45,7 +48,7 @@ describe('smime', () => {
   });
 
   it('should recreate the existing root MIME node as a child node', () => {
-    expect(mail.message.childNodes[0].getHeader('Content-Type')).to.match(/text\/plain/);
+    expect(mail.message.childNodes[0].getHeader('Content-Type')).to.match(/multipart\/mixed/);
   });
 
   it('should not keep headers in the child node', () => {
@@ -55,7 +58,11 @@ describe('smime', () => {
   });
 
   it('should apply canonicalization to text/* nodes', () => {
-    expect(mail.message.childNodes[0].content).to.equal('Example\r\nmessage');
+    expect(mail.message.childNodes[0].childNodes[0].content).to.equal('Example\r\nmessage');
+  });
+
+  it('should not apply canonicalization to non text/* nodes', () => {
+    expect(mail.message.childNodes[0].childNodes[1].content).to.equal('DO\nNOT\nALTER');
   });
 
   it('should create a signature', () => {

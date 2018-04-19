@@ -5,7 +5,7 @@ const MimeNode = require('nodemailer/lib/mime-node');
 
 const newline = /\r\n|\r|\n/g;
 function canonicalTransform(node) {
-  if (node.getHeader('content-type').slice(0, 5) === 'text/') {
+  if (node.getHeader('content-type').slice(0, 5) === 'text/' && node.content) {
     node.content = node.content.replace(newline, '\r\n');
   }
   node.childNodes.forEach(canonicalTransform);
