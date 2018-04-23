@@ -1,5 +1,7 @@
 # Nodemailer plugin to sign mail using S/MIME
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gazoakley/nodemailer-smime.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/gazoakley/nodemailer-smime.svg?branch=master)](https://travis-ci.org/gazoakley/nodemailer-smime)
 [![Coverage Status](https://coveralls.io/repos/github/gazoakley/nodemailer-smime/badge.svg?branch=master)](https://coveralls.io/github/gazoakley/nodemailer-smime?branch=master)
 [![dependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/status.svg)](https://david-dm.org/gazoakley/nodemailer-smime)
