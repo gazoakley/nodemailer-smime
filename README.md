@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gazoakley/nodemailer-smime.svg?branch=master)](https://travis-ci.org/gazoakley/nodemailer-smime)
 [![Coverage Status](https://coveralls.io/repos/github/gazoakley/nodemailer-smime/badge.svg?branch=master)](https://coveralls.io/github/gazoakley/nodemailer-smime?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/gazoakley/nodemailer-smime.svg)](https://greenkeeper.io/)
 [![dependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/status.svg)](https://david-dm.org/gazoakley/nodemailer-smime)
 [![devDependencies Status](https://david-dm.org/gazoakley/nodemailer-smime/dev-status.svg)](https://david-dm.org/gazoakley/nodemailer-smime?type=dev)
 
