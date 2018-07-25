@@ -13,6 +13,9 @@ describe('smime', () => {
     plugin = smime({
       cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
       key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
+      chain: [
+        fs.readFileSync(path.join(__dirname, 'caCert.pem'), 'binary'),
+      ]
     });
     expect(plugin).to.be.a('function');
   });
