@@ -12,7 +12,7 @@ describe('smime', () => {
   it('should return a plugin function', () => {
     plugin = smime({
       cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
-      key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary')
+      key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
     });
     expect(plugin).to.be.a('function');
   });
@@ -42,12 +42,12 @@ describe('smime', () => {
   });
 
   it('should create a new root MIME node with children when a certificate chain is provided', (done) => {
-    let plugin = smime({
+    const plugin = smime({
       cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
       key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
       chain: [
         fs.readFileSync(path.join(__dirname, 'caCert.pem'), 'binary'),
-      ]
+      ],
     });
     const message = new MimeNode('multipart/mixed');
     message.setHeader({
@@ -59,7 +59,7 @@ describe('smime', () => {
     textNode.setContent('Example\nmessage');
     const binaryNode = message.createChild('application/octet-stream');
     binaryNode.setContent('DO\nNOT\nALTER');
-    let mail = { message };
+    const mail = { message };
     plugin(mail, (err) => {
       if (err) {
         return done(err);
@@ -72,12 +72,12 @@ describe('smime', () => {
   });
 
   it('should return an errror when invalid content is provided', (done) => {
-    let plugin = smime({
+    const plugin = smime({
       cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
       key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
       chain: [
         fs.readFileSync(path.join(__dirname, 'caCert.pem'), 'binary'),
-      ]
+      ],
     });
     const message = new MimeNode('multipart/mixed');
     message.setHeader({
@@ -87,7 +87,7 @@ describe('smime', () => {
     });
     const textNode = message.createChild('application/octet-stream');
     textNode.setContent(9);
-    let mail = { message };
+    const mail = { message };
     plugin(mail, (err) => {
       if (err) {
         return done();
