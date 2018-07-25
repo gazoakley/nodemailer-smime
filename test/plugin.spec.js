@@ -12,10 +12,7 @@ describe('smime', () => {
   it('should return a plugin function', () => {
     plugin = smime({
       cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
-      key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
-      chain: [
-        fs.readFileSync(path.join(__dirname, 'caCert.pem'), 'binary'),
-      ]
+      key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary')
     });
     expect(plugin).to.be.a('function');
   });
@@ -41,6 +38,61 @@ describe('smime', () => {
       expect(mail.message.childNodes).to.be.an('array');
       expect(mail.message.childNodes).to.have.lengthOf(2);
       done();
+    });
+  });
+
+  it('should create a new root MIME node with children when a certificate chain is provided', (done) => {
+    let plugin = smime({
+      cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
+      key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
+      chain: [
+        fs.readFileSync(path.join(__dirname, 'caCert.pem'), 'binary'),
+      ]
+    });
+    const message = new MimeNode('multipart/mixed');
+    message.setHeader({
+      from: 'Example user <user@example.com>',
+      to: 'Example recipient <recipient@example.com>',
+      subject: 'Example message',
+    });
+    const textNode = message.createChild('text/plain');
+    textNode.setContent('Example\nmessage');
+    const binaryNode = message.createChild('application/octet-stream');
+    binaryNode.setContent('DO\nNOT\nALTER');
+    let mail = { message };
+    plugin(mail, (err) => {
+      if (err) {
+        return done(err);
+      }
+      expect(mail.message.getHeader('Content-Type')).to.match(/multipart\/signed/);
+      expect(mail.message.childNodes).to.be.an('array');
+      expect(mail.message.childNodes).to.have.lengthOf(2);
+      done();
+    });
+  });
+
+  it('should return an errror when invalid content is provided', (done) => {
+    let plugin = smime({
+      cert: fs.readFileSync(path.join(__dirname, 'cert.pem'), 'binary'),
+      key: fs.readFileSync(path.join(__dirname, 'key.pem'), 'binary'),
+      chain: [
+        fs.readFileSync(path.join(__dirname, 'caCert.pem'), 'binary'),
+      ]
+    });
+    const message = new MimeNode('multipart/mixed');
+    message.setHeader({
+      from: 'Example user <user@example.com>',
+      to: 'Example recipient <recipient@example.com>',
+      subject: 'Example message',
+    });
+    const textNode = message.createChild('application/octet-stream');
+    textNode.setContent(9);
+    let mail = { message };
+    plugin(mail, (err) => {
+      if (err) {
+        return done();
+      }
+      done('error expected');
     });
   });
 
