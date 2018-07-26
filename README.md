@@ -31,6 +31,7 @@ transporter.use('stream', htmlToText(options));
 ## Options
 
   * `cert` - PEM formatted SMIME certificate to sign/bundle mail with
+  * `chain` - array of PEM formatted certificates to bundle
   * `key` - PEM formatted private key associated with certificate
 
 ## Example
@@ -41,6 +42,9 @@ const smime = require('nodemailer-smime');
 const transporter = nodemailer.createTransport();
 const options = {
     cert: '<PEM formatted cert>',
+    chain: [
+      '<PEM formatted cert>'
+    ],
     key: '<PEM formatted key>'
 }
 transporter.use('stream', smime(options));

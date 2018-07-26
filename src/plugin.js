@@ -46,6 +46,9 @@ module.exports = function (options) {
       const p7 = forge.pkcs7.createSignedData();
       p7.content = forge.util.createBuffer(buf.toString('binary'));
       p7.addCertificate(options.cert);
+      (options.chain || []).forEach(cert => {
+        p7.addCertificate(cert);
+      });
       p7.addSigner({
         key: options.key,
         certificate: options.cert,
